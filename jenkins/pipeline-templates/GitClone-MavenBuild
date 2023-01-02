@@ -1,3 +1,4 @@
+///Declarative///
 pipeline{
     agent any
     stages{
@@ -16,5 +17,18 @@ pipeline{
                 sh 'cp target/cgw.war target/newcgw.war'
             }
         }
+    }
+}
+
+///Scrtipt///
+node{
+    stage('clone git'){
+        git branch: 'main', credentialsId: 'b632fbc3-c690-4c85-b8d1-3fbbc5fe56cc', url: 'https://github.com/can997/fulldeployment.git'   
+    }
+    stage('build'){
+        sh 'mvn clean package'
+    }
+    stage('deploy'){
+        sh 'cp target/cgw.war target/newcgw.war'
     }
 }
