@@ -13,13 +13,17 @@ pipeline{
             }
         }
         stage('deploy code'){
+            when{
+                expression{
+                    currentBuild.result == 'FAIL'
+                }
+            }
             steps(''){
                 sh 'cp target/cgw.war target/newcgw.war'
             }
         }
     }
 }
-
 ///Scrtipt///
 node{
     stage('clone git'){
