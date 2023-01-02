@@ -1,0 +1,20 @@
+pipeline{
+    agent any
+    stages{
+        stage('clone git'){
+            steps{
+                git branch: 'main', credentialsId: 'b632fbc3-c690-4c85-b8d1-3fbbc5fe56cc', url: 'https://github.com/can997/fulldeployment.git'   
+            }
+        }
+        stage('build code'){
+            steps{
+                sh 'mvn clean package'
+            }
+        }
+        stage('deploy code'){
+            steps(''){
+                sh 'cp target/cgw.war target/newcgw.war'
+            }
+        }
+    }
+}
